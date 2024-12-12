@@ -16,8 +16,9 @@ const AuthProvider = ({ children }) => {
 
     const login = async (credentials) => {
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/login/', credentials);
+            const response = await axios.post('http://localhost:5000/api/auth/admin/login', credentials);
             const { token, user } = response.data;
+            //console.log(user)
             localStorage.setItem('token', token);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             setUser(user);
@@ -29,7 +30,7 @@ const AuthProvider = ({ children }) => {
     const logout = () => {
         localStorage.removeItem('token');
         delete axios.defaults.headers.common['Authorization'];
-        setUser(null);
+        setUser(null); 
     };
 
     return (
